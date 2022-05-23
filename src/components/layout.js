@@ -29,7 +29,7 @@ const Layout = ({ location, title, children }) => {
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>
         . Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
-        . See site <a href="https://github.com/tsagaanbar/blog/">source</a> on GitHub.
+        . See site <a href="https://github.com/tsagaanbar/tsagaanbar.github.io">source</a> on GitHub.
       </footer>
     </div>
   )

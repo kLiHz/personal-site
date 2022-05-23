@@ -6,7 +6,7 @@ module.exports = {
       summary: ` who is studying computer science and related technologies`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://tsagaanbar.github.io/blog/`,
+    siteUrl: `https://tsagaanbar.github.io/`,
     social: {
       github: `tsagaanbar`,
       mastodonInstance: `mastodon.social`,
