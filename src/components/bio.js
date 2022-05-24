@@ -56,7 +56,7 @@ const Bio = () => {
             GitHub
           </a>
           {` | `}
-          <a href={`https://${social?.mastodonInstance || `joinmastodon.org`}/@${social?.mastodonUsername || ``}`}>
+          <a href={`https://${social?.mastodonInstance || `joinmastodon.org`}/@${social?.mastodonUsername || ``}`} rel="me">
             Mastodon
           </a>.
         </p>
