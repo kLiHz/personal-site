@@ -18,9 +18,9 @@ The very first blog built with Gatsby.
 
 需要注意, 如有需要, 要先在命令行环境设置代理, 参考:
 
-```console
-$ export http_proxy='http://172.23.112.1:7890'
-$ export https_proxy='http://172.23.112.1:7890'
+```shell{promptUser: henry}
+export http_proxy='http://172.23.112.1:7890'
+export https_proxy='http://172.23.112.1:7890'
 ```
 
 [nodejs]: https://nodejs.org/
@@ -31,23 +31,23 @@ $ export https_proxy='http://172.23.112.1:7890'
 
 笔者配置时, 使用最新的 Node.js (18.2.0) 会有问题, 切换到 LTS (16.15.0) 则没有问题.
 
-```console
-$ nvm install --lts
+```shell{promptUser: henry}
+nvm install --lts
 ```
 
 ### 安装 Gatsby
 
 在用 npm 安装 Gatsby 时, 如果所处的网络条件有问题, 需要设置代理, 则似乎还需要显式地为 npm 设置代理:
 
-```console
-$ npm config set proxy 'http://172.23.112.1:7890'
-$ npm config set strict-ssl false
+```shell{promptUser: henry}
+npm config set proxy 'http://172.23.112.1:7890'
+npm config set strict-ssl false
 ```
 
 之后再 (全局) 安装 `gatsby-cli`:
 
-```console
-$ npm install -g gatsby-cli
+```shell{promptUser: henry}
+npm install -g gatsby-cli
 ```
 
 ## 新建项目
@@ -58,8 +58,8 @@ $ npm install -g gatsby-cli
 
 下面的命令使用 `gatsby new` 命令, 根据 Gatsby's blog starter 的仓库新建一个项目:
 
-```console
-$ gatsby new gatsby-starter-blog https://github.com/gatsbyjs/gatsby-starter-blog
+```shell{promptUser: henry}
+gatsby new gatsby-starter-blog https://github.com/gatsbyjs/gatsby-starter-blog
 ```
 
 对模板仓库的修改过程可参见该网站源代码仓库的提交记录.
@@ -68,9 +68,9 @@ $ gatsby new gatsby-starter-blog https://github.com/gatsbyjs/gatsby-starter-blog
 
 之后, 进入对应的目录, 并开启 development server (开发服务器):
 
-```console
-$ cd gatsby-starter-blog
-$ gatsby develop --host=0.0.0.0
+```shell{promptUser: henry}
+cd gatsby-starter-blog
+gatsby develop --host=0.0.0.0
 ```
 
 追加 `--host=0.0.0.0` 参数使得 development server 侦听来自站外的请求, 以便能够从主机访问 WSL 2 上的 server 程序.
@@ -173,7 +173,7 @@ module.exports = {
 
 并在调用 [enriikke/gatsby-gh-pages-action][enriikke-gh-action] 时, 选择传递 `--prefix-paths` 参数给 Gatsby.
 
-```yml
+```yml{16}
 name: Gatsby Build & Publish
 
 on:
