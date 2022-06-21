@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tiger:blank RSS Feed]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://klihb.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 21 Jun 2022 02:02:23 GMT</lastBuildDate><item><title><![CDATA[Hello, Gatsby!]]></title><description><![CDATA[The very first blog built with Gatsby. 环境配置 笔者采用 WSL 2 作为开发环境. 关于 WSL 2 的使用技巧可以参见上一篇博客. 安装 nvm 和 Node.js 首先需要安装 Node.js 环境. 这里参照微软的文档 在 WSL…]]></description><link>https://klihb.github.io/hello-gatsby/</link><guid isPermaLink="false">https://klihb.github.io/hello-gatsby/</guid><pubDate>Mon, 23 May 2022 22:59:41 GMT</pubDate><content:encoded>&lt;p&gt;The very first blog built with Gatsby.&lt;/p&gt;
+&lt;h2&gt;环境配置&lt;/h2&gt;
+&lt;p&gt;笔者采用 WSL 2 作为开发环境. 关于 WSL 2 的使用技巧可以参见上一篇博客.&lt;/p&gt;
+&lt;h3&gt;安装 nvm 和 Node.js&lt;/h3&gt;
+&lt;p&gt;首先需要安装 &lt;a href=&quot;https://nodejs.org/&quot;&gt;Node.js&lt;/a&gt; 环境. 这里参照微软的文档 &lt;a href=&quot;https://docs.microsoft.com/zh-cn/windows/dev-environment/javascript/nodejs-on-wsl&quot; title=&quot;在 WSL 2 上设置 Node.js | Microsoft Docs&quot;&gt;在 WSL 2 上设置 Node.js&lt;/a&gt;, 即先安装 &lt;a href=&quot;https://github.com/nvm-sh/nvm&quot;&gt;nvm&lt;/a&gt; 用来管理 Node.js 的版本, 再通过 nvm 安装 Node.js.&lt;/p&gt;
+&lt;p&gt;需要注意, 如有需要, 要先在命令行环境设置代理, 参考:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;http_proxy&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;http://172.23.112.1:7890&apos;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;https_proxy&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;http://172.23.112.1:7890&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在安装好 nvm 后, 可能需要重启 bash 才能使配置的环境变量生效. 如若重启, 记得重新配置代理.&lt;/p&gt;
+&lt;p&gt;笔者配置时, 使用最新的 Node.js (18.2.0) 会有问题, 切换到 LTS (16.15.0) 则没有问题.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;nvm &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --lts&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;安装 Gatsby&lt;/h3&gt;
+&lt;p&gt;在用 npm 安装 Gatsby 时, 如果所处的网络条件有问题, 需要设置代理, 则似乎还需要显式地为 npm 设置代理:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; config &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; proxy &lt;span class=&quot;token string&quot;&gt;&apos;http://172.23.112.1:7890&apos;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; config &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; strict-ssl &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;之后再 (全局) 安装 &lt;code class=&quot;language-text&quot;&gt;gatsby-cli&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g gatsby-cli&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;新建项目&lt;/h2&gt;
+&lt;p&gt;开始之前, 建议先参考学习 &lt;a href=&quot;https://www.gatsbyjs.com/docs/tutorial/&quot; title=&quot;Tutorial | Gatsby&quot;&gt;Gatsby 的教程&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;使用博客模板&lt;/h3&gt;
+&lt;p&gt;下面的命令使用 &lt;code class=&quot;language-text&quot;&gt;gatsby new&lt;/code&gt; 命令, 根据 Gatsby&apos;s blog starter 的仓库新建一个项目:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;gatsby new gatsby-starter-blog https://github.com/gatsbyjs/gatsby-starter-blog&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;对模板仓库的修改过程可参见该网站源代码仓库的提交记录.&lt;/p&gt;
+&lt;h3&gt;本地预览&lt;/h3&gt;
+&lt;p&gt;之后, 进入对应的目录, 并开启 development server (开发服务器):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; gatsby-starter-blog
+gatsby develop --host&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.0&lt;/span&gt;.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;追加 &lt;code class=&quot;language-text&quot;&gt;--host=0.0.0.0&lt;/code&gt; 参数使得 development server 侦听来自站外的请求, 以便能够从主机访问 WSL 2 上的 server 程序.&lt;/p&gt;
+&lt;h2&gt;发布&lt;/h2&gt;
+&lt;p&gt;笔者计划使用 GitHub Pages 托管页面, 而使用 GitHub Actions 实现站点的自动构建和部署, 即 &quot;持续集成 (Continuous Integration)&quot;.&lt;/p&gt;
+&lt;h3&gt;创建在线仓库&lt;/h3&gt;
+&lt;p&gt;为了使用 GitHub Actions 实现自动构建和部署, 需要将仓库上传至 GitHub.&lt;/p&gt;
+&lt;p&gt;笔者计划将该项目直接部署到 GitHub 提供给账户的二级域名下 (也被称为用户的个人页面仓库), 即 username.github.io, 对应的仓库与其同名.&lt;/p&gt;
+&lt;p&gt;如果是部署在域名的子目录下, 也就是部署为账户下某一仓库的 Pages, 则需要额外的配置. 将在后面介绍.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于不同的 GitHub Pages 类型可参考 &lt;a href=&quot;https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages&quot;&gt;About GitHub Pages - GitHub Docs&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;创建 PAT 并添加到仓库 secrets&lt;/h3&gt;
+&lt;p&gt;仓库的自动构建和部署是通过 GitHub workflow (工作流) 实现的. 需要注意的是, 由于工作流的执行是在远程主机上, 因此为了能够成功部署页面 (将页面推送到仓库中的分支上), 该脚本需要能够访问对应的 GitHub 仓库才行, 即需要向其提供传递一个能够鉴权的凭据.&lt;/p&gt;
+&lt;p&gt;可以参照 &lt;a href=&quot;https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token&quot; title=&quot;Creating a personal access token - GitHub Docs&quot;&gt;Creating a personal access token&lt;/a&gt; 创建一个具有仓库 (&lt;code class=&quot;language-text&quot;&gt;repo&lt;/code&gt;) 访问权限的 &quot;个人访问凭据 (Personal Access Token)&quot;, 并将其添加到仓库的 &quot;Secrets&quot; 中.&lt;/p&gt;
+&lt;p&gt;在本例中, 即为添加一个名为 &lt;code class=&quot;language-text&quot;&gt;ACCESS_TOKEN&lt;/code&gt; 的 secret 到仓库的 Actions secrets 中, 其值为上一步中创建的 PAT.&lt;/p&gt;
+&lt;p&gt;在 Actions 运行时, 仓库用于 Actions 的环境变量密钥 (Environment secrets) 和仓库访问密钥 (Repositoy secrets) 将会传递过去, 使得 Actions 能够对仓库进行修改.&lt;/p&gt;
+&lt;h3&gt;创建工作流&lt;/h3&gt;
+&lt;p&gt;之后, 需要为仓库新建一个负责构建和部署的工作流. 创建工作流的过程可以在仓库的 GitHub 页面上进行. 也就是在仓库的根目录下新建一个 &lt;code class=&quot;language-text&quot;&gt;.github/workflows/build.yml&lt;/code&gt; 文件 (文件名无特殊要求).&lt;/p&gt;
+&lt;p&gt;在工作流中, 笔者调用了 &lt;a href=&quot;https://github.com/enriikke/gatsby-gh-pages-action&quot; title=&quot;Gatsby Publish: GitHub Action to build and deploy your Gatsby site to GitHub Pages ❤️🎩&quot;&gt;enriikke/gatsby-gh-pages-action&lt;/a&gt; 这一 GitHub Action, 其将会在仓库根目录下执行 &lt;code class=&quot;language-text&quot;&gt;gatsby build&lt;/code&gt;, 并将其部署到 GitHub Pages.&lt;/p&gt;
+&lt;!-- 为了支持 `npm` 和 `yarn`, 该 GitHub Action 需要 `package.json` 中定义了 `build` 脚本. 不过, 使用 `gatsby new` 创建项目时, Gatsby 将会自动定义该脚本为调用 `gatsby build`. --&gt;
+&lt;p&gt;文件的内容 (使用方式) 类似如下:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yml&quot;&gt;&lt;pre class=&quot;language-yml&quot;&gt;&lt;code class=&quot;language-yml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 工作流的名称&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Gatsby Build &amp;amp; Publish
+
+&lt;span class=&quot;token comment&quot;&gt;# 控制该工作流何时被执行&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# 仅在 main 分支上发生 push 时被触发&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; main &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# 一个工作流由多个可以串行或并行的工作 (jobs) 组成&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# 该工作流仅包含一个名为 &quot;build&quot; 的 job&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# 指定将执行该工作的执行者的类型&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ubuntu&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;latest
+
+    &lt;span class=&quot;token comment&quot;&gt;# 阶段 (steps) 表示该工作 (job) 下一系列将被执行的任务 (tasks)&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# 将该仓库签出 (check out) 在 $GITHUB_WORKSPACE 指定的目录下,&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# 以便被工作 (job) 访问&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/checkout@v1
+      
+      &lt;span class=&quot;token comment&quot;&gt;# 调用 enriikke/gatsby-gh-pages-action&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# 进行页面的构建和部署&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; enriikke/gatsby&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;action@v2
+        &lt;span class=&quot;token comment&quot;&gt;# 指定传递给该 Action 的参数&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# 使用的访问权限口令&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;access-token&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; secrets.ACCESS_TOKEN &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# 待部署的分支名&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;deploy-branch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果是在网页上进行的工作流的创建, 保存 (提交或合并到 &lt;code class=&quot;language-text&quot;&gt;main&lt;/code&gt; 分支) 之后, 将会触发该工作流. 如果是在本地编辑后推送到远端仓库应当同理.&lt;/p&gt;
+&lt;h3&gt;部署到 GitHub Pages&lt;/h3&gt;
+&lt;p&gt;该工作流将会在构建完成后, 将结果输出到 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支. 等待执行完毕后, 可以在仓库的 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支下查看到对应的结果.&lt;/p&gt;
+&lt;p&gt;同时需要进入仓库设置页的 &quot;Pages&quot; 下, 确保将发布源设置为工作流将构建产物所部署到的 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支.&lt;/p&gt;
+&lt;p&gt;GitHub 默认使用 Jekyll 根据指定的发布源进行构建. 因此, 用户自定义的页面构建 CI 通常会将内容发布在 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支上, 并在根目录下写入一个 &lt;code class=&quot;language-text&quot;&gt;.nojekyll&lt;/code&gt; 文件, 以便 GitHub 不再对这些内容进行处理; 之后, GitHub 会将分支上的内容打包, 完成 &lt;strong&gt;最终&lt;/strong&gt; 的部署. 这也是为什么仓库的 Actions 页面实际上会多出来一个名为 &quot;pages build and deployment&quot; 的 workflow 的原因.&lt;/p&gt;
+&lt;p&gt;可以参考 &lt;a href=&quot;https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site&quot; title=&quot;Configuring a publishing source for your GitHub Pages site - GitHub Docs&quot;&gt;配置 GitHub Pages 站点的发布源&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;部署到子目录下&lt;/h3&gt;
+&lt;p&gt;需要注意, 如果是部署在域名的子目录下 (也就是账户下仓库开启 GitHub Pages 后所对应的页面地址), 则需要进行相应的配置.&lt;/p&gt;
+&lt;p&gt;首先在项目根目录的 &lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt; 中添加如下的配置 (即指定路径前缀):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token literal-property property&quot;&gt;pathPrefix&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/reponame&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;并在调用 &lt;a href=&quot;https://github.com/enriikke/gatsby-gh-pages-action&quot; title=&quot;Gatsby Publish: GitHub Action to build and deploy your Gatsby site to GitHub Pages ❤️🎩&quot;&gt;enriikke/gatsby-gh-pages-action&lt;/a&gt; 时, 选择传递 &lt;code class=&quot;language-text&quot;&gt;--prefix-paths&lt;/code&gt; 参数给 Gatsby.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight has-highlighted-lines&quot; data-language=&quot;yml&quot;&gt;&lt;pre class=&quot;language-yml&quot;&gt;&lt;code class=&quot;language-yml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Gatsby Build &amp;amp; Publish
+
+&lt;span class=&quot;token key atrule&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; main &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ubuntu&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;latest
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/checkout@v1
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; enriikke/gatsby&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;action@v2
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;access-token&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; secrets.ACCESS_TOKEN &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;deploy-branch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token key atrule&quot;&gt;gatsby-args&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;prefix&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;paths&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[使用 WSL 2 进行工作]]></title><description><![CDATA[了解 WSL 2 : 适用于 Linux 的 Windows 子系统文档 - Microsoft Docs (微软文档) 为什么使用 WSL? : 为什么这么多人吹 WSL? - 知乎 Installation 安装 WSL 2: 设置 WSL 开发环境 - Microsoft…]]></description><link>https://klihb.github.io/working-with-wsl-2/</link><guid isPermaLink="false">https://klihb.github.io/working-with-wsl-2/</guid><pubDate>Thu, 19 May 2022 01:26:28 GMT</pubDate><content:encoded>&lt;p&gt;了解 WSL 2 : &lt;a href=&quot;https://docs.microsoft.com/zh-cn/windows/wsl/&quot;&gt;适用于 Linux 的 Windows 子系统文档 - Microsoft Docs&lt;/a&gt; (微软文档)&lt;/p&gt;
+&lt;p&gt;为什么使用 WSL? : &lt;a href=&quot;https://www.zhihu.com/question/393170756&quot;&gt;为什么这么多人吹 WSL? - 知乎&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;安装 WSL 2: &lt;a href=&quot;https://docs.microsoft.com/zh-cn/windows/wsl/setup/environment&quot;&gt;设置 WSL 开发环境 - Microsoft Docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;...&lt;/p&gt;
+&lt;h2&gt;Networking&lt;/h2&gt;
+&lt;p&gt;最主要的是网络问题. 一般日常工作需要, 需要 WSL2 和主机能够互相访问.&lt;/p&gt;
+&lt;p&gt;WSL 2 作为 Hyper-V 虚拟机运行, 不同于 WSL 1 的桥接, 其使用网络地址转换 (NAT) 服务作为其虚拟网络 &lt;sup id=&quot;fnref-compare-versions&quot;&gt;&lt;a href=&quot;#fn-compare-versions&quot; class=&quot;footnote-ref&quot;&gt;compare-versions&lt;/a&gt;&lt;/sup&gt;. 因此, 主机和 WSL 2 需要首先得知对方在该虚拟网络下的 IP 地址才能互相通信. 需要注意, 每次重启主机, 该 IP 地址都会发生变化.&lt;/p&gt;
+&lt;p&gt;可以通过下面的方法获取主机和 WSL 2 的 IP &lt;sup id=&quot;fnref-get-ip&quot;&gt;&lt;a href=&quot;#fn-get-ip&quot; class=&quot;footnote-ref&quot;&gt;get-ip&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;p&gt;在运行的 WSL 2 上, 可以通过访问  &lt;code class=&quot;language-text&quot;&gt;/etc/resolv.conf&lt;/code&gt;, 从而得知主机在该网络下的地址:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; /etc/resolv.conf
+&lt;span class=&quot;token comment&quot;&gt;# This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [network]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# generateResolvConf = false&lt;/span&gt;
+nameserver &lt;span class=&quot;token number&quot;&gt;172.21&lt;/span&gt;.160.1
+&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; /etc/resolv.conf &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;grep&lt;/span&gt; nameserver &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;awk&lt;/span&gt; &apos;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; print &lt;span class=&quot;token variable&quot;&gt;$2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;172.21&lt;/span&gt;.160.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;可以通过 &lt;code class=&quot;language-text&quot;&gt;hostname -I&lt;/code&gt; 得到 WSL 2 的 IP.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;command-line-prompt&quot;&gt;&lt;span data-user=henry data-host=localhost&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;hostname&lt;/span&gt; -I &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;{print $1}&apos;&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;172.21&lt;/span&gt;.172.66 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;但是, 要想 WSL 2 成功访问主机, 还需要主机放开防火墙规则. 可以参考下面的 PowerShell 命令 (需要管理员权限) &lt;sup id=&quot;fnref-disable-win-firewall&quot;&gt;&lt;a href=&quot;#fn-disable-win-firewall&quot; class=&quot;footnote-ref&quot;&gt;disable-win-firewall&lt;/a&gt;&lt;/sup&gt;, 解除 Windows 主机上针对 WSL 虚拟网卡的防火墙规则:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;powershell&quot;&gt;&lt;pre class=&quot;language-powershell&quot;&gt;&lt;code class=&quot;language-powershell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 直接放开 `vEthernet (WSL)` 这张网卡的防火墙&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;New-NetFirewallRule&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;DisplayName &lt;span class=&quot;token string&quot;&gt;&quot;WSL&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;Direction Inbound &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;InterfaceAlias &lt;span class=&quot;token string&quot;&gt;&quot;vEthernet (WSL)&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;Action Allow&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Proxy&lt;/h3&gt;
+&lt;p&gt;从前文可以看出, WSL 2 的网络配置略显复杂, 因此先考虑在 WSL2 上直接运行代理程序 (Clash), 未果, 不能与网络代理服务提供商的服务器正常通信 (猜测可能是时区问题).&lt;/p&gt;
+&lt;p&gt;折腾许久不得, 于是作罢, 还是尝试使用主机上运行的代理程序.&lt;/p&gt;
+&lt;p&gt;WSL 2 对主机上程序的访问, 相当于来自局域网的访问. 因此, 需要打开代理软件 &quot;&lt;strong&gt;允许来自局域网的连接&lt;/strong&gt; (Allow LAN)&quot; 的设置. 同时, 除了前文说到的 &lt;strong&gt;放行 WSL 2 的网卡&lt;/strong&gt; 外, 还需要 &lt;strong&gt;允许代理软件通过防火墙&lt;/strong&gt; &lt;sup id=&quot;fnref-pass-firewall&quot;&gt;&lt;a href=&quot;#fn-pass-firewall&quot; class=&quot;footnote-ref&quot;&gt;pass-firewall&lt;/a&gt;&lt;/sup&gt; (可能会在第一次开启代理软件的 &quot;Allow LAN&quot; 的时候弹出提醒).&lt;/p&gt;
+&lt;p&gt;之后, 便可以在 WSL 2 上使用主机上的代理了.&lt;/p&gt;
+&lt;p&gt;备注: 尚未研究 SSH 的代理. 可以参考:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/wizcas/wsl2proxy&quot;&gt;wizcas/wsl2proxy - github.com&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;端口转发&lt;/h3&gt;
+&lt;p&gt;从局域网访问主机上的 WSL 2, 可以参考; 因本人暂无需求, 故尚未研究. 下面仅备注一些可能相关的链接.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/425312804&quot;&gt;如何在局域网的其他主机上中访问本机的 WSL2 - 知乎&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://ruihusky.github.io/ruihusky/posts/2020-12-11_wsl2-net-config/&quot;&gt;Windows 10 WSL 2 网络配置 | ruihusky&apos;s Blog&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;File System&lt;/h2&gt;
+&lt;p&gt;虽然 Windows 的文件系统挂载在了 WSL 2 上, Windows 中也可以直接在资源管理器中访问 WSL 2 上的文件系统. 但是建议, 在可能的情况下, 还是将文件放在 WSL 2 中处理, 尽量不要跨系统进行操作.&lt;/p&gt;
+&lt;h2&gt;Misc&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://xiabee.cn/coding/wsl2/&quot;&gt;WSL 2 踩坑分享 - xiabee&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-compare-versions&quot;&gt;&lt;a href=&quot;https://docs.microsoft.com/zh-cn/windows/wsl/compare-versions&quot;&gt;比较 WSL 1 和 WSL 2 - Microsoft Docs&lt;/a&gt;&lt;a href=&quot;#fnref-compare-versions&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-get-ip&quot;&gt;&lt;a href=&quot;https://zinglix.xyz/2020/04/18/wsl2-proxy/#wsl-%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%AE%BF%E4%B8%BB%E6%9C%BA-ip&quot;&gt;#WSL 中获取宿主机 IP - WSL 2 中访问宿主机 Windows 的代理 - ZingLix Blog&lt;/a&gt;&lt;a href=&quot;#fnref-get-ip&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-disable-win-firewall&quot;&gt;来自 &lt;a href=&quot;https://bytem.io/posts/wsl2-network-tricks/&quot;&gt;WSL 2 的一些网络访问问题 | Artin&apos;s Blog (bytem.io)&lt;/a&gt;, 引用自 &lt;a href=&quot;https://github.com/microsoft/WSL/issues/4585&quot;&gt;Issue #4585 · microsoft/WSL&lt;/a&gt;. 前者还提到了使用 TUN 模式代理整张网卡的流量.&lt;a href=&quot;#fnref-disable-win-firewall&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-pass-firewall&quot;&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/144583887&quot;&gt;WSL 2 来了! 但是能正常使用并不简单 - Wizcas - 知乎&lt;/a&gt; (Also available at &lt;a href=&quot;https://0x1c.dev/blog/dev/make-wsl2-right/&quot;&gt;0x1C.dev&lt;/a&gt;); 该文章参考了 &lt;a href=&quot;https://blog.rogerkung-win.top/posts/38819/&quot;&gt;在 WSL 2 中访问主机代理 - Geek 成长路 (rogerkung-win.top)&lt;/a&gt;.&lt;a href=&quot;#fnref-pass-firewall&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[关于 draw.io 矢量图 SVG 导出的研究]]></title><description><![CDATA[draw.io 是一个简单易用的图表 (diagram) 绘制工具 , 可以用作一个简单的矢量图绘制工具, 画一些简单的图标或者流程图等等都很适合. 虽然好用, 但是在导出  文件为其他格式时, 大多数时候都需要额外注意. 可以访问 app.diagrams.net…]]></description><link>https://klihb.github.io/drawio-svg-exports/</link><guid isPermaLink="false">https://klihb.github.io/drawio-svg-exports/</guid><pubDate>Wed, 18 May 2022 04:06:11 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/jgraph/drawio&quot;&gt;draw.io&lt;/a&gt; 是一个简单易用的图表 (diagram) 绘制工具 &lt;sup id=&quot;fnref-app-page&quot;&gt;&lt;a href=&quot;#fn-app-page&quot; class=&quot;footnote-ref&quot;&gt;app-page&lt;/a&gt;&lt;/sup&gt;, 可以用作一个简单的矢量图绘制工具, 画一些简单的图标或者流程图等等都很适合.&lt;/p&gt;
+&lt;p&gt;虽然好用, 但是在导出 &lt;code class=&quot;language-text&quot;&gt;*.drawio&lt;/code&gt; 文件为其他格式时, 大多数时候都需要额外注意.&lt;/p&gt;
+&lt;h2&gt;导出设计时会遇到的问题及原因&lt;/h2&gt;
+&lt;p&gt;对于 PNG 导出, 默认的设置下, 导出的图像会很模糊.  幸运的是, 可以在导出时通过将图表的缩放比例调制 250% ~ 300% (甚至更高) 来解决. &lt;sup id=&quot;fnref-png-export&quot;&gt;&lt;a href=&quot;#fn-png-export&quot; class=&quot;footnote-ref&quot;&gt;png-export&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;至于 SVG, 事情就变得有点复杂. 在浏览器中查看软件导出的 SVG 文件时, 一切似乎都很好. 但是, 当尝试将这些 SVG 导入 Word 或 Inkscape 等软件时，则可能会看到图片上出现 &quot;&lt;strong&gt;Viewer does not support full SVG 1.1&lt;/strong&gt; (查看器不支持完整的 SVG 1.1)&quot; 字样 &lt;sup id=&quot;fnref-info-updated&quot;&gt;&lt;a href=&quot;#fn-info-updated&quot; class=&quot;footnote-ref&quot;&gt;info-updated&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;figure&gt;
+&lt;p&gt;图片暂时省略&lt;/p&gt;
+&lt;figcaption&gt;图 1: 在 draw.io 中绘制的图片&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;p&gt;图片暂时省略&lt;/p&gt;
+&lt;figcaption&gt;图 2: 显示异常的图片&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;大多数情况下, 这种情况是因为 draw.io 使用了 HTML 代码来标记文本框中的自动换行的长文本 / 复杂格式的文本 / (或者还有其他的图元), 并将这些代码直接嵌入到了 SVG 的 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;foreignObject&gt;&lt;/code&gt; 标签中.&lt;/p&gt;
+&lt;p&gt;现代浏览器自然是能够解析这些 HTML 代码的, 因此在其中查看不会出现太多的问题. 然而这些 &quot;外来 (foreign)&quot; 的 HTML 代码并不能被 Inkscape 等专门处理 SVG 的软件理解.&lt;/p&gt;
+&lt;p&gt;因此, draw.io 的开发人员在 SVG 中加入了一个 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;switch&gt;&lt;/code&gt; 标签, 使得不支持 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;foreignObject&gt;&lt;/code&gt; 中内容的查看器在渲染这样的 SVG 时, 会显示上述的提示信息文本.&lt;/p&gt;
+&lt;p&gt;总之, 并不是这些查看器 &quot;不支持 SVG 1.1&quot;, 而是因为这些 SVG 中 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;foreignObject&gt;&lt;/code&gt; 部分包含了不能被浏览器 (或者其他能渲染 HTML 的程序) 之外的程序所解析的内容.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;另一方面, 尽管浏览器能够查看这些 SVG, 但是对于浏览器来说, 事实上 SVG 代码才是 &quot;外来 (foreign)&apos; 之物. &lt;sup id=&quot;fnref-svg-foreign-to-web-browser&quot;&gt;&lt;a href=&quot;#fn-svg-foreign-to-web-browser&quot; class=&quot;footnote-ref&quot;&gt;svg-foreign-to-web-browser&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;至于目前 draw.io 对于这长文本 / 复杂格式文本的 SVG 后备方案, draw.io 只是输出了一段修剪过后的文本, 十分没用.&lt;/p&gt;
+&lt;p&gt;不过, 按照 draw.io 的一位开发人员的说法, 其实 draw.io 这个项目最开始并不是为了画图, 更没有导出 SVG 的选项; 就连现在, 其定位也不是一个矢量图绘制软件. 所以, 对于开发者来说, 上述这些, 并不能算是软件的 BUG, 甚至不用去理会.&lt;/p&gt;
+&lt;h2&gt;解决方案&lt;/h2&gt;
+&lt;h3&gt;法 1: 禁用换行与文本格式&lt;/h3&gt;
+&lt;p&gt;目前, 官方博客中给出的解决方法, 就是手动全选图表上的元素, 在 &quot;格式面板 (Format Pannel)&quot; 的 &quot;&lt;strong&gt;Text&lt;/strong&gt; (文本)&quot; 选项卡下, &lt;strong&gt;手动禁用&lt;/strong&gt;掉 &quot;&lt;strong&gt;Word Wrap&lt;/strong&gt; (自动换行)&quot; 和 &quot;&lt;strong&gt;Formatted Text&lt;/strong&gt; (格式化文本)&quot;. &lt;sup id=&quot;fnref-disable-text-options&quot;&gt;&lt;a href=&quot;#fn-disable-text-options&quot; class=&quot;footnote-ref&quot;&gt;disable-text-options&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;这样处理之后, draw.io 导出的 SVG 就会干干净净的了 (不含 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;foreignObject&gt;&lt;/code&gt;, 可以被 Word 等软件正常读取).&lt;/p&gt;
+&lt;p&gt;需要注意的是:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;禁用 &quot;自动换行&quot; 后, 之前适应文本框大小自动换行的文本将变为一行, 需要手动键入换行符将长文本分成多行;&lt;/li&gt;
+&lt;li&gt;禁用 &quot;格式化文本&quot; 后, 一个文本框中将不支持多种格式的文本, 必须以一个文本框为单位整体调整文本的样式.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每次手动禁用这些选项可能会有点麻烦, 可以直接 &quot;禁用 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;foreignObject&gt;&lt;/code&gt; 的使用&quot;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果是在线使用 &lt;a href=&quot;https://app.diagrams.net&quot;&gt;app.diagrams.net&lt;/a&gt;, 可以直接访问 &lt;a href=&quot;https://app.diagrams.net/#_CONFIG_UzV3UjUyyk0tSk8F0qrGjqpggeLM3IKcVJ/EpNScYoh4SVFpqqq5CxABAA==&quot;&gt;app.diagrams.net/#_CONFIG_UzV3UjUyyk0tSk8F0qrGjqpggeLM3IKcVJ/EpNScYoh4SVFpqqq5CxABAA==&lt;/a&gt;, 直接配置对应的设置 &lt;sup id=&quot;fnref-click-to-config&quot;&gt;&lt;a href=&quot;#fn-click-to-config&quot; class=&quot;footnote-ref&quot;&gt;click-to-config&lt;/a&gt;&lt;/sup&gt;;&lt;/li&gt;
+&lt;li&gt;或者在软件的 &quot;其他&quot; 选项中选择 &quot;配置 (Configuration)&quot;, 添加键值对 &lt;code class=&quot;language-text&quot;&gt;&quot;simpleLabels&quot;: true&lt;/code&gt;, 结果如下:
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;simpleLabels&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Other configurations...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;法 2: 导出 PDF 后再转换为 SVG&lt;/h3&gt;
+&lt;p&gt;我们知道, PDF 中的数据一般是没有上下文语义的; 可以说, 它只包含各个元素的样式以及对应的位置, 是一种用来存储排版结果的格式, 并不会轻易改变. &lt;sup id=&quot;fnref-pdf&quot;&gt;&lt;a href=&quot;#fn-pdf&quot; class=&quot;footnote-ref&quot;&gt;pdf&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;由于浏览器能够渲染排版这样包含 HTML 的 SVG, 并且浏览器一般具有 (将排版后的页面内容) 导出为 (打印为) PDF 的功能 &lt;sup id=&quot;fnref-print-to-pdf&quot;&gt;&lt;a href=&quot;#fn-print-to-pdf&quot; class=&quot;footnote-ref&quot;&gt;print-to-pdf&lt;/a&gt;&lt;/sup&gt;. 于是, 可以利用该功能, 将浏览器对该 SVG 的排版结果导出到 PDF 里, 再通过 Inkscape 从 PDF 中还原 SVG.&lt;/p&gt;
+&lt;p&gt;PDF 中包含的一般是稳定的格式, 从中还原出的 SVG 自然也相对稳定 (可能由于字体因素产生些许失真).&lt;/p&gt;
+&lt;p&gt;不过, 经过生成 PDF 再复原的过程, 一般会丧失许多 SVG 的语义, 比如文本不再能够被连贯的复制出来; 如果生成 PDF 的过程进行了转曲的操作, 这些文本可能甚至不再能够被选取复制.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最新 draw.io 的 SVG 导出选项中可以修改 &quot;文本设置&quot;, 有一个 &quot;将文本标签 (label) 转换为 SVG&quot; 的选项. 据开发者所说, 就是将该文件上传到他们的服务器, 以进行上述的转换.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;小结&lt;/h3&gt;
+&lt;p&gt;综上, 目前有这些可行的解决方案：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于简单的 SVG 图表 (不包含长文本 / 复杂格式文本), 只需按照上面提到的方法操作即可;&lt;/li&gt;
+&lt;li&gt;尝试 (使用浏览器) 将 SVG 导出为 PDF, 然后使用 Inkscape 从 PDF 生成 SVG.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;其他资料&lt;/h2&gt;
+&lt;p&gt;关于这个事情, 有一些相关的有意思的讨论可以围观:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/jgraph/drawio/issues/774&quot;&gt;Issue #774 · jgraph/drawio&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://inkscape.org/forums/other/inkscape-viewer-does-not-support-full-svg-11/&quot;&gt;Inkscape &quot;Viewer does not support full SVG 1.1&quot; - Using Inkscape with Other Programs - Inkscape Forum&lt;/a&gt; (还提到了 &lt;a href=&quot;https://en.wikipedia.org/wiki/XSLT&quot; title=&quot;XSLT - Wikipedia&quot;&gt;XSLT&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=29753638&quot;&gt;Truly Headless Draw.io Exports - Hacker News (ycombinator.com)&lt;/a&gt; (提到了关于 &quot;导出&quot;, &quot;SVG 暗黑模式适配&quot; 等问题)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;其他可能有用的文章:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.freecodecamp.org/news/things-you-need-to-know-about-working-with-svg-in-vs-code-63be593444dd/&quot;&gt;Things you need to know about working with SVG in VS Code (freecodecamp.org)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://tomd.xyz/how-i-use-drawio/&quot;&gt;How I use draw.io at the command line | Tom Donohue&lt;/a&gt; 以及下边的评论:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用代码画图 / 代码形式的图表: &lt;a href=&quot;https://www.structurizr.com/&quot;&gt;Structurizr&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;一个基于 Web 的 PlantUML 编辑器: &lt;a href=&quot;http://www.plantuml.com/plantuml&quot;&gt;http://www.plantuml.com/plantuml&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;处理已压缩的 &lt;code class=&quot;language-text&quot;&gt;.drawio&lt;/code&gt; 文件 (可以在 &apos;properties&apos; 中删除): &lt;a href=&quot;https://stackoverflow.com/questions/46699903/text-editing-a-draw-io-file-exported-as-svg-with-embedded-drawing&quot;&gt;Text-editing a draw.io file exported as SVG with embedded drawing - Stack Overflow&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.oreilly.com/library/view/svg-text-layout/9781491933817/ch04.html&quot;&gt;4. Multiline SVG Text - SVG Text Layout [Book] (oreilly.com)&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/SVG/Element#svg_elements_by_category&quot;&gt;SVG element reference | MDN&lt;/a&gt; 以及 &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;text&gt;&lt;/code&gt; 元素的文档&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/Casperflip/article/details/110129607&quot;&gt;解决draw.io生成SVG矢量图导入Word显示有误的问题以及推荐几种SVG绘图方法 - CSDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zodiaclab.top/%E9%9A%8F%E7%AC%94/draw-io-%E5%AF%BC%E5%87%BA-SVG-%E5%9B%BE%E7%89%87%E6%8A%A5%E9%94%99/&quot;&gt;draw.io 导出 SVG 图片报错&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-app-page&quot;&gt;可以访问 &lt;a href=&quot;https://app.diagrams.net&quot;&gt;app.diagrams.net&lt;/a&gt; 在线使用, 也有很多平台提供 draw.io 的换皮版本.&lt;a href=&quot;#fnref-app-page&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-png-export&quot;&gt;参见 &lt;a href=&quot;https://desk.draw.io/support/solutions/articles/16000059691-export-a-diagram-as-a-higher-resolution-png-image&quot;&gt;Export a diagram as a higher resolution PNG image : draw.io is becoming diagrams.net&lt;/a&gt;.&lt;a href=&quot;#fnref-png-export&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-info-updated&quot;&gt;最新版中, 文本已更改为 &quot;Text is not SVG - cannot display&quot;, 即 &quot;文本不是 SVG - 无法显示&quot;.&lt;a href=&quot;#fnref-info-updated&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-svg-foreign-to-web-browser&quot;&gt;引用自 &lt;a href=&quot;https://inkscape.org/forums/other/inkscape-viewer-does-not-support-full-svg-11/&quot;&gt;Inkscape 论坛&lt;/a&gt; 中 &lt;a href=&quot;https://inkscape.org/forums/other/inkscape-viewer-does-not-support-full-svg-11/#c32375&quot;&gt;@Xav 的回答&lt;/a&gt;.&lt;a href=&quot;#fnref-svg-foreign-to-web-browser&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-disable-text-options&quot;&gt;参见 &lt;a href=&quot;https://www.diagrams.net/doc/faq/svg-export-text-problems&quot;&gt;Why text in exported SVG images may not display correctly (diagrams.net)&lt;/a&gt;&lt;a href=&quot;#fnref-disable-text-options&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-click-to-config&quot;&gt;来自 &lt;a href=&quot;https://inkscape.org/forums/other/inkscape-viewer-does-not-support-full-svg-11/&quot;&gt;Inkscape 论坛&lt;/a&gt; 下的 &lt;a href=&quot;https://inkscape.org/forums/other/inkscape-viewer-does-not-support-full-svg-11/#c32511&quot;&gt;回复&lt;/a&gt;&lt;a href=&quot;#fnref-click-to-config&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-pdf&quot;&gt;可以参考视频 &quot;&lt;a href=&quot;https://www.bilibili.com/video/BV1Mr4y1679f&quot;&gt;PDF 里, 到底都是些什么 - 哔哩哔哩&lt;/a&gt;&quot;.&lt;a href=&quot;#fnref-pdf&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&quot;fn-print-to-pdf&quot;&gt;通常, 这个选项可以在上下文菜单的 &quot;分享&quot;, &quot;打印&quot; / &quot;另存为 PDF&quot; 中找到.&lt;a href=&quot;#fnref-print-to-pdf&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[超星学习通章节文件下载]]></title><description><![CDATA[背景 在 MUC 的学习生活中, 经常会需要使用到学习通. 有些老师会将课程 PPT…]]></description><link>https://klihb.github.io/chaoxing-chapter-file-download/</link><guid isPermaLink="false">https://klihb.github.io/chaoxing-chapter-file-download/</guid><pubDate>Tue, 03 May 2022 07:22:35 GMT</pubDate><content:encoded>&lt;h2&gt;背景&lt;/h2&gt;
+&lt;p&gt;在 MUC 的学习生活中, 经常会需要使用到学习通.&lt;/p&gt;
+&lt;p&gt;有些老师会将课程 PPT 上传到学习通的 &quot;章节&quot; 中. 但是, 出于各种原因 (主观上不情愿或者客观上不会操作), 并不是所有老师都会开启这些文件的下载功能. (注意, &quot;章节&quot; 有时候又称 &quot;任务点&quot;, 区别于课程的 &quot;资料&quot; 板块).&lt;/p&gt;
+&lt;p&gt;而作为学生的我们, 出于各种原因, 有时候又需要下载这些文件来查看 (学习通网页上对文件的预览并不好用), 比如打印出来, 或者存储在个人设备上便于批注和查阅.&lt;/p&gt;
+&lt;p&gt;网上流传了很多方法, 主流的方式大多是提取出 &lt;code class=&quot;language-text&quot;&gt;objectId&lt;/code&gt; 并替换到某个 URL 中, 访问即可下载. 但是这些方法大多已经失效, 访问时提示 &quot;403 Forbidden&quot;.&lt;/p&gt;
+&lt;p&gt;对此, 笔者认为的 &lt;strong&gt;可能&lt;/strong&gt; 的原因是权限校验失败. 用户粘贴 URL 到浏览器地址栏中访问, 便丢失了先前的对话环境, 服务器无法鉴别身份, 便拒绝提供下载功能. 而之前泄露出来可用的 URL 也许只是超星方面忘记了设定身份校验.&lt;/p&gt;
+&lt;p&gt;于是便尝试在同一个网页环境中完成链接的点击.&lt;/p&gt;
+&lt;p&gt;道理是这样, 但是笔者一直没有得以成功实现.&lt;/p&gt;
+&lt;h2&gt;契机&lt;/h2&gt;
+&lt;p&gt;正巧, 最近笔者的好友分享了超星云盘上的文件, 奈何页面上并没有下载按钮. 在不想麻烦朋友的情况下, 同时出于对国内一众网页开发技术的了解 (混乱代码 + 客户端渲染), 直接就点开了 &quot;开发人员工具&quot;, 尝试对页面进行分析.&lt;/p&gt;
+&lt;p&gt;很快, 通过顺藤摸瓜的方式:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先找到网页上可能出现下载按钮的位置 / 对网页上现有的元素进行检索&lt;/li&gt;
+&lt;li&gt;再搜索可疑的关键字, 比如 &lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt; 或者 &lt;code class=&quot;language-text&quot;&gt;file&lt;/code&gt; 之类的单词&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;便发现了网页源代码中明文内嵌的一段 JavaScript 代码.&lt;/p&gt;
+&lt;p&gt;观察这段代码, 可以发现这段代码:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声明了一个包含文件属性信息的 JSON 对象, 其中一个属性就是 &lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt;, 其值为一个 URL&lt;/li&gt;
+&lt;li&gt;然后将一个回调函数绑定在了页面上的 &lt;code class=&quot;language-text&quot;&gt;#download&lt;/code&gt; 元素上.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然页面上没有找到这个元素, 可是这个回调函数里的代码还是可以执行一下试试.&lt;/p&gt;
+&lt;p&gt;这段代码大概完成的事情就是:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一个 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;a&gt;&lt;/code&gt; 元素&lt;/li&gt;
+&lt;li&gt;将其 &lt;code class=&quot;language-text&quot;&gt;href&lt;/code&gt; 属性设置为上面提到的 URL&lt;/li&gt;
+&lt;li&gt;再将 &lt;code class=&quot;language-text&quot;&gt;target&lt;/code&gt; 属性设置为 &lt;code class=&quot;language-text&quot;&gt;_self&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;最后再模拟点击&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;结果就是, 执行了上述代码, 浏览器就弹出了文件下载的窗口.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有一些细节: 一是需要根据页面所使用的协议对这个 URL 的协议头进行替换, 一般需要替换成 &lt;code class=&quot;language-text&quot;&gt;https&lt;/code&gt;; 二是这个 URL 除了 &lt;code class=&quot;language-text&quot;&gt;objectId&lt;/code&gt; 还包含了 &lt;code class=&quot;language-text&quot;&gt;at_&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ak_&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ad_&lt;/code&gt; 等参数 (大概是用来限制文件的下载, 这些参数动态生成, 参数必须合法才能下载文件), 如果缺失这些参数则是无法下载文件的.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;毕竟笔者没有什么 WEB 开发经验, 也没有深入研究超星的技术, 所以不清楚具体为什么同样的链接, 直接访问未果, 而在控制台里这样操作就可以成功下载.&lt;/p&gt;
+&lt;h2&gt;延申&lt;/h2&gt;
+&lt;p&gt;在笔者为了这次的问题查阅资料的过程中, 也看到了其他资料, 但是主要是和章节文件下载相关的.&lt;/p&gt;
+&lt;p&gt;事成之后, 笔者觉得这些问题之间有一定联系, 便准备将这次经历分享出来, 帮助需要的读者.&lt;/p&gt;
+&lt;p&gt;在 &lt;a href=&quot;https://www.zhihu.com/question/448827791&quot;&gt;超星学习通如何下载文件 - 知乎&lt;/a&gt; 这个问题下有个 &lt;a href=&quot;https://www.zhihu.com/question/448827791/answer/2224124911&quot;&gt;回答&lt;/a&gt;, 提供了一种较为简单直观的下载超星学习通章节任务点中文件的方法. 回答的评论下也有用户转发了一篇 &lt;a href=&quot;https://blog.csdn.net/BingTaiLi/article/details/112535274&quot;&gt;CSDN 上的博客&lt;/a&gt;, 同样介绍了类似的方法.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;问题下的 &lt;a href=&quot;https://www.zhihu.com/question/448827791/answer/1783365679&quot;&gt;另一个回答&lt;/a&gt; 给出的是类似的方式, 不过看起来就没那么直观.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个方法大概是, 检视超星加载页面时产生的网络请求, 之后找到一个请求项 (其实就是对 &lt;code class=&quot;language-text&quot;&gt;https://mooc1-1.chaoxing.com/ananas/status/&amp;lt;objectid&gt;?flag=normal&lt;/code&gt; 的访问), 其返回的信息是一个 JSON 对象.&lt;/p&gt;
+&lt;p&gt;对象中主要用到的有 &lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt; 和 &lt;code class=&quot;language-text&quot;&gt;pdf&lt;/code&gt; 这两个属性值:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt; 属性对应的 URL 如果直接访问会提示 &quot;403 Forbidden&quot;&lt;/li&gt;
+&lt;li&gt;而 &lt;code class=&quot;language-text&quot;&gt;pdf&lt;/code&gt; 属性对应的 URL 的目前仍能够直接访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;笔者猜测, &lt;code class=&quot;language-text&quot;&gt;pdf&lt;/code&gt; 属性值给出的 URL 对应的是源文件转换而来的 PDF 文件, 而该 API 目前仍未被超星封锁, 因此尚能访问.&lt;/p&gt;
+&lt;p&gt;而笔者发现, 使用本文 &lt;a href=&quot;#%E5%A5%91%E6%9C%BA&quot;&gt;&quot;契机&quot;&lt;/a&gt; 部分介绍的方式后, 访问 &lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt; 对应的 URL 仍然是可以下载到文件的.&lt;/p&gt;
+&lt;h2&gt;方法&lt;/h2&gt;
+&lt;p&gt;这里重申一次整个流程, 建议参考 &lt;a href=&quot;https://blog.csdn.net/BingTaiLi/article/details/112535274&quot;&gt;前文提到的博客&lt;/a&gt;, 大致如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进入页面, 打开开发者工具, 进入 &quot;网络 (Network)&quot; 选项卡&lt;/li&gt;
+&lt;li&gt;刷新页面, 检视网页对 &lt;code class=&quot;language-text&quot;&gt;https://mooc1-1.chaoxing.com/ananas/status/&amp;lt;objectid&gt;?flag=normal&lt;/code&gt; 的访问请求 (可以筛选 &lt;code class=&quot;language-text&quot;&gt;XHR&lt;/code&gt; 类别下的请求)&lt;/li&gt;
+&lt;li&gt;预览 (Preview) 该请求, 查看到对应的内容 (或者手动模拟请求, 但是需要有相应的权限)&lt;/li&gt;
+&lt;li&gt;得到一个 JSON 对象, 获取其中 &lt;code class=&quot;language-text&quot;&gt;download&lt;/code&gt; 属性的值, 应为一个具有 &lt;code class=&quot;language-text&quot;&gt;at_&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ak_&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ad_&lt;/code&gt; 等参数的 URL&lt;/li&gt;
+&lt;li&gt;在控制台中创建一个 HTML &lt;code class=&quot;language-text&quot;&gt;&amp;lt;a&gt;&lt;/code&gt; 元素, 其 &lt;code class=&quot;language-text&quot;&gt;href&lt;/code&gt; 属性为上一步获得的 URL, 需注意替换协议头
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;e &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;href &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;...&apos;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// download 处给出的 URL, 需注意替换协议头&lt;/span&gt;
+e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;target &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;_self&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;模拟点击这个 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;a&gt;&lt;/code&gt; 元素
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;总之, 很多时候 WEB 相关的问题 (比如获取页面所加载的资源, 获取页面展示信息所使用的 API 等等) 都可以通过检视 (Inspect) 网页的源代码 (HTML + CSS + JavaScript), 最终渲染出来的元素, 以及过程中的网络请求等解决.&lt;/p&gt;
+&lt;p&gt;比如这次问题中的 &quot;学习通章节文件下载&quot;, 除非学习通在服务器端将文件截图渲染好再递交给用户, 不然用户总是需要下载文件本身, 且用户总是可以检视这个过程, 以得到相应的文件.&lt;/p&gt;
+&lt;p&gt;就算是学习通在服务器端渲染好文件 (且不说这会给学习通服务器带来多少压力), 我们也总是可以找到唯一标识这个文件的 ID, 并通过一定的 API 获取到这个文件的下载地址. 更何况, 超星目前的网站 (以及其他很多网站) 上代码繁复冗杂, 风格各异, 也许总能从其中找到切入点.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Windows 下色彩管理的一些经验]]></title><description><![CDATA[…]]></description><link>https://klihb.github.io/some-experience-on-color-management/</link><guid isPermaLink="false">https://klihb.github.io/some-experience-on-color-management/</guid><pubDate>Sat, 30 Apr 2022 08:16:15 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;一切都开始于一台广色域显示器, 以及截图时对于色彩的执着.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;自从开始留意到截图在查看时的颜色和实际有差别时, 就一直在查找原因. 色彩管理的文章看了很多, 截图取色之类的也试了很多, 可惜一直不得其解.&lt;/p&gt;
+&lt;p&gt;想当初, 花了不少时间才弄明白色彩空间的概念. 而现在, 几乎花了更多的时间在色彩管理上.&lt;/p&gt;
+&lt;p&gt;这次探讨的起因还得从前几日觉得的 bilibili 的 UWP 客户端中的视频封面和网页端中的色彩不一致开始.&lt;/p&gt;
+&lt;p&gt;中间的过程很繁琐, 就不详细说了, 直接记录结论吧. 总之没想到花了这么多时间, 很惭愧, 但也觉得值过了.&lt;/p&gt;
+&lt;h2&gt;配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;笔记本: Lenovo Yoga C940&lt;/li&gt;
+&lt;li&gt;操作系统: Windows 11&lt;/li&gt;
+&lt;li&gt;屏幕型号: LEN8B93&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;笔记本中自带了一个色彩管理文件, &quot;Lenovo Yoga LCD Monitor&quot;, 可以通过搜索显示屏型号, 有帖子给出了 OEM 提供的配置文件.&lt;/p&gt;
+&lt;p&gt;尚不清楚这个配置文件究竟做了什么 (是真正进行了校色还是只是抑制了过饱和), 笔者也没有校色仪, 也不会如何进行校色.&lt;/p&gt;
+&lt;h2&gt;已知知识&lt;/h2&gt;
+&lt;p&gt;很多软件是不支持色彩管理的, 比如聊天工具, Visual Studio, JetBrains 全家桶等日常软件. 这些软件直接输出 RGB 数值.&lt;/p&gt;
+&lt;p&gt;而笔记本使用的是广色域显示器, 于是平时屏幕上看到的几乎是过饱和的色彩 (但是笔者似乎已经习惯了这种鲜艳的色彩 😂).&lt;/p&gt;
+&lt;p&gt;而目前的浏览器 (Microsoft Edge / Chrome), Photoshop 等支持并默认启用色彩管理, 也就是会调用显示器的色彩文件对网络上的 JPEG 图像 (包括通过 CSS 指定的 RGB 颜色等) 进行色彩变换. 也就是说, 这些软件实际输出的 RGB 值不等于原始的 RGB 值.&lt;/p&gt;
+&lt;p&gt;但是 Firefox 默认按 sRGB 模式工作, 也就是直接输出图像原本的像素值, 于是同样的图片, 在 Firefox 中查看, 屏幕上看到的效果往往就会过饱和.&lt;/p&gt;
+&lt;h2&gt;对截图的影响&lt;/h2&gt;
+&lt;p&gt;根据实验, 如果进行截图 / 屏幕快照 / 录屏等操作, 获取到的就是程序最终输出给显示器的数值.&lt;/p&gt;
+&lt;p&gt;一般的截图软件, 既不会嵌入色彩配置文件 (解释这些数据是在何种色彩空间下进行色彩的描述, 亦即表示这些数据究竟对应何种现实的颜色), 也不会进行色彩空间的变换 (转换到大家默认的 sRGB 空间), 直接就将这些数据存储. 于是:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在不具备色彩管理的软件中, 往往会将这些数据当成是 sRGB 下的而处理, 或者就直接输出.&lt;/li&gt;
+&lt;li&gt;在具备色彩管理的软件中, 由于缺失色彩配置文件, 一般也会将其当成 sRGB 下的数据进行处理.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而事实上, 这些截图中的数据本应当根据相应的配置文件 (也就是这些软件进行色彩转换时所依据的显示器的色彩配置文件) 进行解释.&lt;/p&gt;
+&lt;h3&gt;截取未进行色彩管理的程序界面&lt;/h3&gt;
+&lt;p&gt;于是, 如果截取的是 QQ 等未进行色彩管理的界面中的图像 (直接是 sRGB 空间下的数据):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在未进行色彩管理的软件中查看, 一般直接输出同样的像素值, 因此在同一台计算机上, 观感就是一致的 (但实际上是过饱和).&lt;/li&gt;
+&lt;li&gt;而在进行了色彩管理的软件 (比如 MS Edge, Photoshop, Windows 照片 等) 中查看, 观感上往往就会暗淡一些 (但是可以认为看到的是正确的色彩).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果将这样的图片直接发送给其他使用 sRGB 显示器的用户, 由于一般默认被当作 sRGB 解释, 他们看到的应当也是正确的色彩.&lt;/p&gt;
+&lt;h3&gt;截取进行了色彩管理的程序界面&lt;/h3&gt;
+&lt;p&gt;但是如果截取的是浏览器, 或者其他经过色彩管理的软件中的图像, 情况就复杂了.&lt;/p&gt;
+&lt;p&gt;同前所述, 由于这些图像中既未嵌入色彩配置文件, 也未进行色彩转换, 于是其中的色彩数值将不能得到正确的解释.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果在不支持色彩管理的软件中查看 (配置文件被无视), 软件往往会将这些 RGB 值直接输出给显示器, 在当前设备上自然没问题, 一旦更换设备就会发生失真.&lt;/li&gt;
+&lt;li&gt;如果在具备色彩管理能力的软件中查看, 又因为没有色彩配置文件, 一般将其当成是 sRGB 下的数据而进行解释并再次像显示器色彩空间进行转换, 在当前设备上查看便 (往往) 会有差谬, 其他设备亦是如此.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;于是便需要手动修正:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;要么嵌入相应的色彩配置文件 (也就是被截图的软件进行色彩管理时所使用的显示器配置文件), 但是嵌入的色彩配置文件会带来文件大小的增减, 并且有可能被忽视 (比如分享给其他用户时所使用的 IM 软件等);&lt;/li&gt;
+&lt;li&gt;要么根据相应的色彩配置文件进行色彩空间转换 (转换到常用的 sRGB 色彩空间去). 不过需要注意, 这样转换来又转换回去, 色彩同最开始的相比就会有些许变化.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;总之终于是大概搞明白了, 而且方法也是有了:&lt;/p&gt;
+&lt;p&gt;比较稳妥的方法就是确保自己截图得到的 / 分享给别人的数据是处于 sRGB 空间下的.&lt;/p&gt;
+&lt;p&gt;可是比较头疼的问题就是需要确定哪些软件进行了色彩管理, 哪些没有.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目前几个常用浏览器的情况算是已知了. (MS Edge / Chrome 现在默认似乎是按显示器配置文件解释 Untagged 的图像内容这一点倒是也有点头疼)&lt;/li&gt;
+&lt;li&gt;其他常用软件比如 Visual Studio, JetBrains 的 IDE 等应该是输出 sRGB 的 (未进行色彩管理的).&lt;/li&gt;
+&lt;li&gt;尚不清楚 Visual Studio Code 这种 Electron 应用有没有进行色彩管理. (似乎是有的, 因为之前 HDR 不兼容, 还需要在启动参数里强制使用 sRGB 来着) (TIPS: 如果分享代码截图的话, 可以将 VS Code 里的代码粘贴进 PowerPoint 文本框, 再复制出来就是图片了)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其实还有关于录制视频以及视频播放时色彩管理的问题, 这个就等之后再研究吧 🤣.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[如何将就着使用 MUC 的竞赛管理平台]]></title><description><![CDATA[截至该文章的写作时间 (2022 年 3 月 20 日)，MUC 的竞赛管理平台 (校外访问需经由 MUC 远程接入 VPN 系统) 已经相当老旧，苟延残喘，在现代浏览器上几乎无法使用。 不建议在个人工作使用的电脑上安装 Sangfor (深信服) 的客户端程序，尽量通过 Web…]]></description><link>https://klihb.github.io/make-do-with-muc-jingsai-platform/</link><guid isPermaLink="false">https://klihb.github.io/make-do-with-muc-jingsai-platform/</guid><pubDate>Sun, 20 Mar 2022 05:56:44 GMT</pubDate><content:encoded>&lt;p&gt;截至该文章的写作时间 (2022 年 3 月 20 日)，&lt;a href=&quot;http://js.muc.edu.cn&quot;&gt;MUC 的竞赛管理平台&lt;/a&gt; (校外访问需经由 &lt;a href=&quot;https://vpn.muc.edu.cn&quot;&gt;MUC 远程接入 VPN 系统&lt;/a&gt;) 已经相当老旧，苟延残喘，在现代浏览器上几乎无法使用。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不建议在个人工作使用的电脑上安装 Sangfor (深信服) 的客户端程序，尽量通过 Web 页面远程接入。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因作者权限问题，本篇文章仅能站在学生用户的角度分享一下使用体验和使用经验。&lt;/p&gt;
+&lt;p&gt;在现代浏览器 (如 Chrome, Microsoft Edge) 上，用户尚能进入页面，并进行简单的数据查询，但是由于弃用的 API，许多超链接已经无法点击，更不用说还在使用 Flash 作为上传控件的证书上传页面。&lt;/p&gt;
+&lt;h2&gt;组队报名&lt;/h2&gt;
+&lt;p&gt;若学生要将自己参加竞赛的信息录入系统，则需要教师事先在系统中创建对应的计划。&lt;/p&gt;
+&lt;p&gt;之后，学生可以在“报名开始”至“报名结束”的时间内 (即“报名阶段”) 申请报名。&lt;/p&gt;
+&lt;p&gt;如图，在基于 Chromium 内核的新版 Microsoft Edge 浏览器中，点击计划前的按钮 &lt;kbd&gt;【组队报名】&lt;/kbd&gt; 并没有反应；打开调试界面之后，可以看到控制台中输出了错误信息。&lt;/p&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/570c317cf199872b6ced0078ae580a05/43090/Snipaste_2022-03-20_02-59-16.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 72.78481012658227%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClElEQVQoz3WQW2/TQBCF/f/f+AG884a4XwotMUna0DSkULdpmtSXOOvdtXftvXnX68uiUJBAgk9HI81IZ45mvNl8PptfzOYXp1/mXxZfP/ljfzL1J9PPk+n49GxyNhtPpv740PrjyYNORqNPo9GTp8+9oWsZ51prZ3VnlOBMCCEFF4JTSrkQFGMIc1KWlFKEEC6KfB9xDI78iXcH8hdX4PgWTu+LaUhErWttGtuaxkopjTGkZARlsiq1FKpWO4j3EHeDez/67H1PywDwAFSPJ5tH7y+n3zfXCYqISAouparrmuxRsrgmVzEJ7kkQkeAuD27lNn7z7oN3l8ZYUNMOAIA0CgHCwjTCtLw2lJZlWdFojb76cH4KLzdweY+vlvDytArO37x87d2Ey4gEsmm362h5/i28gzsgACZplrOKs5KzbF8ka5YlHGccQYFzVZSd4G+PTjzbuloPqhk4F2GcRFGxuk1Wq+vFYgFzoqSSUgmhlKqFFFJKjDGlpKTk5dFHrx2cMp00HeO8qiqEIEKQUJplUKm6sdb9Zvipru9qY7kyT1+989reKdNL00Mq9znLiMiIAAUvmKJMJXuk6rrv++E3zg22651zb0/8h+ReNf1h/gd9PwhllNaDe/D8SnbO2a5vD+bRr+R/mfuKMEZZa9u2636WvjvQ1lpb2776cPxfs7U2jHcgy4qiEFIarSktCkLF4XtS1/WzY9+znZP68LA/7jrs6ZpG3az0ZmPTXbPb1SjPUxRGaBfjPCNNxUezC88517SD7dzfwc4Ng6sqt1q56xu2jrYbGMYUpGWJyrZkzjTT+dLb4+p+n68TGKZgHSU32zhYh8FqHaUgyVCSggziBMDVJt4mIMM5pbQghDN2dDb/ASKpN/Xp02pYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;使用检查元素功能分析“组队报名”按钮，发现其为一个 &lt;a&gt; 元素，包含 onClick 属性，其中隐含了将要访问的链接&quot; title=&quot;使用检查元素功能分析“组队报名”按钮，发现其为一个 &lt;a&gt; 元素，包含 onClick 属性，其中隐含了将要访问的链接&quot; src=&quot;/static/570c317cf199872b6ced0078ae580a05/f058b/Snipaste_2022-03-20_02-59-16.png&quot; srcset=&quot;/static/570c317cf199872b6ced0078ae580a05/c26ae/Snipaste_2022-03-20_02-59-16.png 158w,
+/static/570c317cf199872b6ced0078ae580a05/6bdcf/Snipaste_2022-03-20_02-59-16.png 315w,
+/static/570c317cf199872b6ced0078ae580a05/f058b/Snipaste_2022-03-20_02-59-16.png 630w,
+/static/570c317cf199872b6ced0078ae580a05/40601/Snipaste_2022-03-20_02-59-16.png 945w,
+/static/570c317cf199872b6ced0078ae580a05/78612/Snipaste_2022-03-20_02-59-16.png 1260w,
+/static/570c317cf199872b6ced0078ae580a05/43090/Snipaste_2022-03-20_02-59-16.png 2705w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;检查“组队报名”按钮&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用户可以通过右键点击页面上的元素，展开上下文菜单，选择“检查”或者“检查元素”，即可打开如图所示的界面。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;不过，通过观察该 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;a&gt;&lt;/code&gt; 元素的 &lt;code class=&quot;language-text&quot;&gt;onClick&lt;/code&gt; 属性，可以观察到，编写者原本的意思是希望在某种“对话框”中打开一个相对链接 (见图右侧红框中高亮部分)。&lt;/p&gt;
+&lt;p&gt;由于文章写作时期，学生尚未返校，因此需要通过 VPN 访问竞赛管理平台。观察到报错信息中调用了 &lt;code class=&quot;language-text&quot;&gt;SF_&lt;/code&gt; 前缀的方法，猜测是由于使用了 Sangfor (深信服) 的解决方案而导致的 Bug。有条件的读者，可以尝试在校内访问竞赛管理平台。&lt;/p&gt;
+&lt;p&gt;不过，经尝试发现，该问题可以通过 Microsoft Edge 的 &lt;strong&gt;Internet Explorer 兼容模式&lt;/strong&gt; 解决。&lt;/p&gt;
+&lt;p&gt;可以参考 &lt;a href=&quot;https://pureinfotech.com/enable-ie-mode-microsoft-edge-chromium/&quot;&gt;How to enable IE Mode on Microsoft Edge Chromium - Pureinfotech&lt;/a&gt; 的内容打开 Microsoft Edge 的 Internet Explorer 兼容模式。之后，在 IE 兼容模式下访问或重新加载 &lt;a href=&quot;https://vpn.muc.edu.cn&quot;&gt;MUC 远程接入 VPN 系统&lt;/a&gt;，并转到竞赛管理平台进行访问。&lt;/p&gt;
+&lt;p&gt;在该模式下，笔者顺利完成了竞赛计划的报名环节。&lt;/p&gt;
+&lt;h2&gt;证书上传&lt;/h2&gt;
+&lt;p&gt;报名完成后，需要教师通过学生的申请，之后便进入“报名通过”状态。这时，学生便可以在“我的竞赛”页面查看自己参与的竞赛，并上传比赛获得的证书。&lt;/p&gt;
+&lt;p&gt;同上一节的原因，用户在经由 Web VPN 访问时，普通模式下点击竞赛条目后的 &lt;kbd&gt;【上传证书】&lt;/kbd&gt; 等按钮并无反应。&lt;/p&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/50a9c851240e38abd881189c452d97ec/a8e24/Snipaste_2022-03-20_03-40-39.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 29.746835443037973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAIAAABM9SnKAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFElEQVQY0y3C7W6DIBQAUN//xZZp1yxd2mwKypcXFZALiNbaH0uXnZziW02Nmmo5/ld/5dCoifSGgiGvjpvE7SLsIt2rsEm5VFwoY1IxBaQTTctIyykXTcd6PYL1XT9KPQg9gDdm8eBnabB3FjAQk4ttXY/HYz+eHuMawopbxJwwb8t+3468bPu2h+i5+rHYG28oAy6ZnvRFzIV1ziPi7MavBt4+h7Iczu+6qnRZjady+LiOp1rcatIygCmEhCFeCNSka5umCCHkvGZEd6Pueo3fJdLK1VWg59SeI2sTh76uadcCQA8AoJUUnHMhZIEYcsoJI5opWBstRoM4umWOq1/zHO4BJ+OUTS49TXi8xsPEwy3PXxIEReXlBE88AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;使用检查元素功能分析“上传证书”按钮，发现其为一个 &lt;a&gt; 元素，包含 onClick 属性，其中隐含了将要访问的链接&quot; title=&quot;使用检查元素功能分析“上传证书”按钮，发现其为一个 &lt;a&gt; 元素，包含 onClick 属性，其中隐含了将要访问的链接&quot; src=&quot;/static/50a9c851240e38abd881189c452d97ec/f058b/Snipaste_2022-03-20_03-40-39.png&quot; srcset=&quot;/static/50a9c851240e38abd881189c452d97ec/c26ae/Snipaste_2022-03-20_03-40-39.png 158w,
+/static/50a9c851240e38abd881189c452d97ec/6bdcf/Snipaste_2022-03-20_03-40-39.png 315w,
+/static/50a9c851240e38abd881189c452d97ec/f058b/Snipaste_2022-03-20_03-40-39.png 630w,
+/static/50a9c851240e38abd881189c452d97ec/40601/Snipaste_2022-03-20_03-40-39.png 945w,
+/static/50a9c851240e38abd881189c452d97ec/78612/Snipaste_2022-03-20_03-40-39.png 1260w,
+/static/50a9c851240e38abd881189c452d97ec/a8e24/Snipaste_2022-03-20_03-40-39.png 2475w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;检查“上传证书”按钮&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;需要注意，接下来的方法，读者应使用现代浏览器正常访问网页，并非在 IE 兼容模式下访问。&lt;/p&gt;
+&lt;p&gt;使用上一节中的方式对该元素进行调试，可以获得该链接尝试访问的相对路径地址。在本例中为 &lt;code class=&quot;language-text&quot;&gt;../upload/upimage.asp?Id=16921&lt;/code&gt; (见图像红框中高亮部分) —— 注意链接中的 &lt;code class=&quot;language-text&quot;&gt;..&lt;/code&gt; 表示上一级路径。&lt;/p&gt;
+&lt;p&gt;观察当前浏览器地址栏中的地址，末尾的结构应类似如下：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;...js.muc.edu.cn/student/Main.asp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;则接下来应该访问的网页地址应修改为：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;...js.muc.edu.cn/upload/upimage.asp?Id=16921&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;访问对应链接后，可以发现页面中间显示“不支持此插件”。&lt;/p&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/e9d5972696be2e347b56278fb59bf498/f3d76/Snipaste_2022-03-20_03-54-13.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 56.9620253164557%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABwElEQVQoz22RWWvbUBCF9f+f+9A+pFACgS6hJFBKl6eA0xLaJDVNTSzHliVfyda1LOluc/cpXkpbyOFwYBi+YeAkHweDgpB0OivruiBllhcFIYuqIqScz4uCVMWC5MUiz+fz2cOHi8vjs/cv3r47enX27OQ0ub2/R0RrrdZaSqmUAgBjjAYQjCsAKYVSylvjtfo8uHr+5vzo9fnTk9Mnxy+TH+MUEZ338L+01kzKrKwopau6XtWUNpvh3a8v366/3gyvboafLi4PsP8H3mKcKSmFEO16w6pVW657QntSq4abTkDHHJMP6fRxmFLa972QQoOVFVWrRi3XQFunjLfOgUXEUZo+Ah9OADDBDZMwydRkBpMMpoXNK7tY6nYTRJeOJ8nwcVhtn2esa1rZ9sC5YkL12zSgrdbR22mWH2DnQ9f7rvc99z3zTDghQ7ORS0rFvgAAvW0AtDGMcyHE8OfdAQ4xIuIu/spo3bZMSAghbOfdNsYYQoiIo8ksuR6lEVHZqB3ubRx2yksbudQFofmillJ678Mfee8jYprlyffROCBKG8Hh3tphB1467LjKipLSdbtptdacsabtd21oZ01Oyt+RDmXk0NGsoAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;检查证书上传页面的元素，发现使用了一个 Flash 控件&quot; title=&quot;检查证书上传页面的元素，发现使用了一个 Flash 控件&quot; src=&quot;/static/e9d5972696be2e347b56278fb59bf498/f058b/Snipaste_2022-03-20_03-54-13.png&quot; srcset=&quot;/static/e9d5972696be2e347b56278fb59bf498/c26ae/Snipaste_2022-03-20_03-54-13.png 158w,
+/static/e9d5972696be2e347b56278fb59bf498/6bdcf/Snipaste_2022-03-20_03-54-13.png 315w,
+/static/e9d5972696be2e347b56278fb59bf498/f058b/Snipaste_2022-03-20_03-54-13.png 630w,
+/static/e9d5972696be2e347b56278fb59bf498/40601/Snipaste_2022-03-20_03-54-13.png 945w,
+/static/e9d5972696be2e347b56278fb59bf498/78612/Snipaste_2022-03-20_03-54-13.png 1260w,
+/static/e9d5972696be2e347b56278fb59bf498/f3d76/Snipaste_2022-03-20_03-54-13.png 3248w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;检查证书上传页面的元素&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;通过检查页面元素可以发现，这是一个 Flash 插件，该技术已经过时，并且无法再在现代浏览器中使用。&lt;/p&gt;
+&lt;p&gt;笔者向友人 &lt;a href=&quot;https://matrix.to/#/@coelacanthus:mozilla.org&quot;&gt;@Coelacanthus&lt;/a&gt; 询问使用 Flash 控件的方法，友人告诉笔者成功使用 Flash 的可能性极低，并建议笔者分析文件上传的请求，从而绕过控件完成文件上传。&lt;/p&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/d15672eb3592667339dfda3a1d71b056/3cd52/Snipaste_2022-03-20_03-57-19.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 92.40506329113923%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAIAAADUsmlHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACIklEQVQ4y42SW2+jMBSE+f8/apNqA7lwMwECNthAuDQxBUxw2UAgrFClarfKbjMP58E6o/nOyMLt0jeQtWHDSd2z6zRN0316UkL+lm9Veacp+h4Y5p6QAHkeRKgsS1Fab3c7abMRpbWsqJqmr0RxsXxRVW2xfEnSVKiq6nBwPM/fbLaqqu1NUweG47jH43ElSitRUjWtYoxz3rYt57xpmrZtG867vhdufV8Wb6wqkzg+ZVkcHY9xTGlOKQ2CkATBmdKu68ZxfIA93qdhmm73+dKP+byEspu0t1HOB7MalXy02b0dni8sz4GxNy0bIs8wDNeFEHmc87n1+zccQsWYCyEJgjCMHNeNjkdCCGP1MAx933ddd7vdhmG4Xq993381U5pbcyzayYoOgGUfdB1I67WiqGEY/VgsN9vd3jQXy2UYRl9wBMZq07RcCA+OY+xNCBF/f5+maRiGj/mpB9gN54eDQ4IAImTsTR/jrus/Er6/mTGm60AHoL7UlOayom42W1lRVqKEkPf/2gRW1z7GlNIkTU+nE0Ke5/ue7/s+xphk2evpfE6SJEnTOEna9tdf5qIsXQjTLJt3CbFs23FdiNDBcSzL1nSg6joAxk6WZUUpyvJPlhmbBOEch/Hr6wljMhcODMu24zj+BvtyuWBMwjAKwwhj4vs4TbMzpXmeV1X12dzD/oSiKGRFNU1LB4amg5+rVVGUz3yv2fzw9V9RX8y/AaNE7U9vNn4cAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;笔者和友人的聊天记录截图，笔者向友人询问使用 Flash 控件的方法，友人告诉笔者可能性极低，并建议笔者分析文件上传的请求，从而绕过控件完成文件上传&quot; title=&quot;笔者和友人的聊天记录截图，笔者向友人询问使用 Flash 控件的方法，友人告诉笔者可能性极低，并建议笔者分析文件上传的请求，从而绕过控件完成文件上传&quot; src=&quot;/static/d15672eb3592667339dfda3a1d71b056/f058b/Snipaste_2022-03-20_03-57-19.png&quot; srcset=&quot;/static/d15672eb3592667339dfda3a1d71b056/c26ae/Snipaste_2022-03-20_03-57-19.png 158w,
+/static/d15672eb3592667339dfda3a1d71b056/6bdcf/Snipaste_2022-03-20_03-57-19.png 315w,
+/static/d15672eb3592667339dfda3a1d71b056/f058b/Snipaste_2022-03-20_03-57-19.png 630w,
+/static/d15672eb3592667339dfda3a1d71b056/3cd52/Snipaste_2022-03-20_03-57-19.png 857w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;友人的指点&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;然而笔者既不了解该竞赛平台所使用的技术 —— ASP，也不了解 Flash 控件，只好从网页的 HTML 源代码开始分析。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;右键页面打开上下文菜单，点击“查看源”或“查看页面源代码”即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;打开页面源代码后，发现除了组成页面的元素之外，即是一篇很长的 JavaScript 脚本。阅读脚本，其中第一个声明的 &lt;code class=&quot;language-text&quot;&gt;challs_flash_update&lt;/code&gt; 方法便因其奇怪的命名方式引人注目——该方法以一个无明显意义的 &lt;code class=&quot;language-text&quot;&gt;challs&lt;/code&gt; 单词作为方法名的前缀。&lt;/p&gt;
+&lt;p&gt;于是 &lt;a href=&quot;https://www.bing.com/search?q=challs_flash_update&quot;&gt;使用搜索引擎 (Bing) 查找关键字 &quot;challs_flash_update&quot;&lt;/a&gt;，搜索可得 &lt;a href=&quot;https://www.cnblogs.com/New-world/archive/2012/11/06/2756982.html&quot;&gt;一篇博文&lt;/a&gt;，根据该博文中的内容可知该控件名为 CFUpdate，以及该控件制作方为 &lt;a href=&quot;http://www.access2008.cn/&quot;&gt;CHALLS 工作室&lt;/a&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果使用某种方式尝试成功播放页面上引用的 Flash 控件 (SWF 文件)，也可以发现关于该工作室的信息。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在该工作室的页面上，可以看到该控件已经更新为“&lt;a href=&quot;https://www.access2008.cn/html5update/&quot;&gt;HTML5 批量上传组件&lt;/a&gt;”。&lt;/p&gt;
+&lt;p&gt;根据页面上的介绍，使用该控件大概分为下面几步：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 HTML 页面上留置一个拥有 ID 的 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&gt;&lt;/code&gt; 标签，以便之后可以通过 DOM 注入界面；&lt;/li&gt;
+&lt;li&gt;引入 CFUpdate 的 JavaScript 包 —— &lt;code class=&quot;language-text&quot;&gt;CFUdate.min.js&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;定义一个 &lt;code class=&quot;language-text&quot;&gt;challs_flash_update&lt;/code&gt; 的初始化函数（负责定义一些配置，主要是上传文件的路径），这个函数会返回一个对象，存储着相应的配置信息；&lt;/li&gt;
+&lt;li&gt;同上，定义一些样式配置；&lt;/li&gt;
+&lt;li&gt;新建一个 JavaScript &lt;code class=&quot;language-text&quot;&gt;CFUpdate&lt;/code&gt; 对象，通过若干次方法调用对其进行初始化，包括参数的传入、以及方法的绑定（完成某些事件后网页需要进行的动作，比如弹窗）；&lt;/li&gt;
+&lt;li&gt;调用该对象的 &lt;code class=&quot;language-text&quot;&gt;start&lt;/code&gt; 方法，将内容注入 HTML 页面；&lt;/li&gt;
+&lt;li&gt;之后便可以使用该控件完成上传操作。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;从函数的命名可以看出，虽然技术已经摆脱了 Flash，但命名尚未更改，因此猜测接口并未发生大部分修改，即制作方使用新的技术替代了原有的 Flash 控件，并保留了一定的兼容性。也就是说，存在可以直接替换掉 Flash 插件、使用更新后的程序完成同样功能的可能。&lt;/p&gt;
+&lt;p&gt;同样，由于上述控件的使用步骤均是由 JavaScript 完成，因此可以通过在网页调试工具的控制台中执行相应的语句，来在本地浏览器层面完成上传界面控件的载入或替换。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;事实上，只需要修改几行代码，就可以完成该页面的升级，然而竞赛管理平台的管理员似乎并没有进行更新。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;于是，我们首先 &lt;a href=&quot;https://www.access2008.cn/html5update/HTML5_CFUpdate0.9.2.zip&quot;&gt;下载 CFUpdate&lt;/a&gt; 到本地计算机，解压后，使用文本编辑器 (如 &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;Visual Studio Code&lt;/a&gt;) 打开该目录，可以看到 &lt;code class=&quot;language-text&quot;&gt;updateForASP&lt;/code&gt; 等目录。&lt;/p&gt;
+&lt;p&gt;进入 &lt;code class=&quot;language-text&quot;&gt;updateForASP&lt;/code&gt; 目录：可以看到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;CFUpdate.min.js&lt;/code&gt; 文件，这就是上文所说的 CFUpdate 的 JavaScript 包；&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt; 文件，其中存储有上述步骤所提及的配置信息；&lt;/li&gt;
+&lt;li&gt;若干 &lt;code class=&quot;language-text&quot;&gt;.html&lt;/code&gt; 文件中则包含关于如何调用并初始化该控件的 JavaScript 语句，以及一部分和完成某些事件后网页需要进行的动作相关的语句。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这时，再次观察竞赛平台证书上传页的 HTML 源代码，发现其中主要包含一部分和 &lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt; 中类似的配置相关内容，以及一些网页的动作相关的回调函数。这其中最主要的就是 &lt;code class=&quot;language-text&quot;&gt;challs_flash_update&lt;/code&gt; 函数中关于接收文件上传的服务器的地址。&lt;/p&gt;
+&lt;p&gt;通过比较竞赛管理平台网页源代码文件的内容和开发者提供的 &lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt;，发现除了标题和接收文件的服务器地址不同外，二者几乎相同。&lt;/p&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/94ec4/Snipaste_2022-03-20_05-24-41.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 51.89873417721519%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABQ0lEQVQoz5WOS2/bQAyE9f9/Uk7tJTBSyIG0smP30LgRFNfRc5fcJfelLTYC2ksP7mBAEOB8GBYPX75Wdf2425X758PxeDqfL23743J5a9uu607n78eXk6iqShyaw1E0TS0aIURVPu2+lUVZC0tGSYWoATUAKrkoJREBAJmZmGGZJSAaBARAQFRm6V9/vmXYa+KctEbTOLqP3vVDWGbLWjM5R8ax89aF4GPweYSYUjqczsVeNE5pNatxIlROSTfNcZzDIoN33ue8Dz5kIK5ZMTul1Hbvn28rmCY5zmS0B4xaR+aVbdpK4uZPYNO65v16u+Vm67iXHxPM1rkQ/Zr+5v6pDX6/3oqyrklrUBJQa0MhhO12F7yvRYzRMGtjfAjpDm1wd/1V7IWISvEwUN/bYUjW/gf8JF5WJkL0RJ5ovaP8D/wb6vo7SV0VxhkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;查看竞赛管理平台证书上传页面的源代码，在其中一 &lt;script&gt; 标签内的 JavaScript 脚本内，根据 challs_flash_update 方法中为 a.url 赋值的语句，获得上传文件的网址&quot; title=&quot;查看竞赛管理平台证书上传页面的源代码，在其中一 &lt;script&gt; 标签内的 JavaScript 脚本内，根据 challs_flash_update 方法中为 a.url 赋值的语句，获得上传文件的网址&quot; src=&quot;/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/f058b/Snipaste_2022-03-20_05-24-41.png&quot; srcset=&quot;/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/c26ae/Snipaste_2022-03-20_05-24-41.png 158w,
+/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/6bdcf/Snipaste_2022-03-20_05-24-41.png 315w,
+/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/f058b/Snipaste_2022-03-20_05-24-41.png 630w,
+/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/40601/Snipaste_2022-03-20_05-24-41.png 945w,
+/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/78612/Snipaste_2022-03-20_05-24-41.png 1260w,
+/static/5bd7e7ec159cb5fd3aa4ebb0a73ac86b/94ec4/Snipaste_2022-03-20_05-24-41.png 2704w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;查看竞赛管理平台证书上传页面的源代码并获得上传图片的网址&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;服务器地址在 &lt;code class=&quot;language-text&quot;&gt;challs_flash_update&lt;/code&gt; 函数内，通过类似 &lt;code class=&quot;language-text&quot;&gt;a.url = &quot;update.asp?Id=16921&quot;;&lt;/code&gt; 的语句表明。读者可以根据自己页面中的语句，修改 &lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt; 中的内容。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;除此之外，竞赛管理平台网页源代码中内嵌的 JavaScript 脚本中并未观察到原有的注释，也没有观察到代码来源。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/c1bc527273fa8d84fdb1fa0eb56605a5/d10b7/Snipaste_2022-03-20_05-25-40.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 74.0506329113924%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsTAAALEwEAmpwYAAACY0lEQVQoz1WRW1PbMBCF/f9/RYfhofDSpJlJh9aEcGkH0iS0JTebQLGd2NZd2pWUBIbQcQIUvjkP0sPZo7MK9mvH4cHP8GvnpP2r3eofhb3Dg85R2DttX520Lo9blyet/nHYb3/rtcP+WetPO9xcw8tG4zjodGIy59ndbNi/mSfEKCjmeZbMGKEkL/IspyVRUhtljEYECwZBo0c/GMXBOE5m8+z3Vb/b7UdxNC9mAEZJw/KS53NZFEowQLAWfYXz3luLiDCYRME4ShkR4/G4LEutjdZmE2GNwioDjLUOEa217gVEC9oMxlEwmiRCitu/N+ksZZxKLY2pZtCcMkYKljFOADQ6sA63AjQWcDiJg2F0V5L5JBrmZF7ygvBSKaNISpNxcTcokkGZDFR5qxdce6Y9U44JJN7ZUXQdjKIEtEnTVGuNVRurlAQAQaUWCg1sIwEQDCBa5zyifbi/r8zjZ3NCGYMNWzMjQkrFJOWSCc2Vloh2Wx4Ans3RNBNCRXFMKa2WCCClQADJZWUWjEvGFReKK63MBqV1ZY6nQTRNtUFK6TYWEYUQWmvOpGCS8JJJthEVSmzDDYB39jbNgvhm5t0CXkBExhilVCrJGOfVILP53cXCL6rG3jvnvLVZSYLru9JZZ4x59Tvn7BsQ0b3HWrtaLtOSBNE0d9YbA+aFainvtXnt/wMCLpxP8jK4TQgCGKOWq+VyuVitFo/rh/VTpcdXre/f6uFx9fS0zhgJdj806ztn9d3T5sdOfed7Y/dHc++iuX/R3Dv/sn+xVVjrHdZ7Yb0X1rphrXvY6B1+6n9unP8DauwtfWJ8Na8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;根据源代码中的内容，修改 Config.js 文件内 challs_flash_update 方法中为 a.url 赋值的语句&quot; title=&quot;根据源代码中的内容，修改 Config.js 文件内 challs_flash_update 方法中为 a.url 赋值的语句&quot; src=&quot;/static/c1bc527273fa8d84fdb1fa0eb56605a5/f058b/Snipaste_2022-03-20_05-25-40.png&quot; srcset=&quot;/static/c1bc527273fa8d84fdb1fa0eb56605a5/c26ae/Snipaste_2022-03-20_05-25-40.png 158w,
+/static/c1bc527273fa8d84fdb1fa0eb56605a5/6bdcf/Snipaste_2022-03-20_05-25-40.png 315w,
+/static/c1bc527273fa8d84fdb1fa0eb56605a5/f058b/Snipaste_2022-03-20_05-25-40.png 630w,
+/static/c1bc527273fa8d84fdb1fa0eb56605a5/40601/Snipaste_2022-03-20_05-25-40.png 945w,
+/static/c1bc527273fa8d84fdb1fa0eb56605a5/78612/Snipaste_2022-03-20_05-25-40.png 1260w,
+/static/c1bc527273fa8d84fdb1fa0eb56605a5/d10b7/Snipaste_2022-03-20_05-25-40.png 2651w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;修改 &lt;code&gt;Config.js&lt;/code&gt; 中的内容&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;因此，替换控件的步骤为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;查看证书上传页面的源代码&lt;/strong&gt;，找到对应的语句，&lt;strong&gt;修改&lt;/strong&gt; &lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt; 中的内容；&lt;/li&gt;
+&lt;li&gt;打开网页的&lt;strong&gt;开发者工具&lt;/strong&gt;：&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;引入 CFUpdate 的包&lt;/strong&gt;——在控制台中，将 &lt;code class=&quot;language-text&quot;&gt;CFUpdate.min.js&lt;/code&gt; 文件中的全部内容粘贴进入并提交；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;覆写若干提供配置文件的函数&lt;/strong&gt;——在控制台中，将修改过的 &lt;code class=&quot;language-text&quot;&gt;Config.js&lt;/code&gt; 文件中的内容全部粘贴进入并提交；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参照示例 HTML 中的代码，完成对象创建、函数绑定等操作&lt;/strong&gt;——打开 &lt;code class=&quot;language-text&quot;&gt;1.html&lt;/code&gt;，将其中从新建 &lt;code class=&quot;language-text&quot;&gt;CFUpdate&lt;/code&gt; 对象的语句 (48 行)，到 &lt;code class=&quot;language-text&quot;&gt;setPostObj&lt;/code&gt; 方法 &lt;strong&gt;之前&lt;/strong&gt; 的语句 (115 行) 复制粘贴到控制台中并提交（示例 HTML 中脚本的剩余部分为其余的配置项，这些部分的等价物已经包含在的竞赛管理平台网页的源代码中，并已经被执行）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;将控件注入当前页面&lt;/strong&gt;——执行对象的 &lt;code class=&quot;language-text&quot;&gt;start&lt;/code&gt; 方法 (127 行)，需要注意其中 &lt;code class=&quot;language-text&quot;&gt;getElementByID&lt;/code&gt; 方法的参数。由于该页面中现有的元素只有一个 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div id=&quot;show&quot;&gt;&lt;/code&gt; 具有 &lt;code class=&quot;language-text&quot;&gt;id&lt;/code&gt; 属性，为了简便，我们直接将控件注入到这里，即，将执行的语句修改为 &lt;code class=&quot;language-text&quot;&gt;c.start(document.getElementById(&quot;show&quot;),580,508);&lt;/code&gt; （由于该 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&gt;&lt;/code&gt; 对象已经设定了 &lt;code class=&quot;language-text&quot;&gt;onDblClick&lt;/code&gt; 属性，即绑定了双击事件——清空内容，因此在接下来的使用中需要注意不要不小心双击页面；此外，该步代码执行时可能会提示错误，无需理会）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/97f360d164cdab81a25be5ea1698a734/c5ef8/Snipaste_2022-03-20_05-28-12.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 52.53164556962025%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABzUlEQVQoz2WRW2sUQRCF8///gm8iimAMGEEDimQffDBCdnHdJDvXntmdnXvfu3qnu6dlZhcheigK6uHj1Km6eAzCpyhO8t1TGD1ug20YhUmaoCyKkjBFQZxsgiiIotX699XN13efvry9/vzq6uPLy+sXby4vvPfWGKWUEELJSQpAA3BKhVCY0DTLy8OhLOtDWaEsP5R107RN26/Wmwl2zsEzaTV3AM05x5TUfYM5xYxgRuxgnXPe+yBOz7BSoGZCSokx/jtyxpnkPceYYyaYMuC9H8fRex+l2b/OUqqu69QJ1ZpSxgTDnBBBmGBcCRi0nZ3DFD2D1XlrDXpyVqAJoZSzjvY9wy3tCSV6gu0EJzNsnVNSgwQlpgIJIOAIYI6aU0o4aUnXM9yRrqe9sea0dpjMmf045jnbxDTIRLwT6X7qecXTihdFK7ViWnKQAkANYJw9w6eDjdYyJmthsDJMWwKGgGn5gIhBu5qkSY9yui/YPuRF40CbwXjvt2F8zuyOg/9Pzvu6bG3TGEyPlDupHAx+dM7a+VXJRU9I1XZFXtRVXewPGdqhGOUpqsu6qpqHh2Bxd/99+etuvV4sV4vl6vZ+dfvj5823xev3H/4AtPZlvFCN+8kAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;在调试控制台中依次执行上述代码后，网页上即会出现文件上传控件的界面&quot; title=&quot;在调试控制台中依次执行上述代码后，网页上即会出现文件上传控件的界面&quot; src=&quot;/static/97f360d164cdab81a25be5ea1698a734/f058b/Snipaste_2022-03-20_05-28-12.png&quot; srcset=&quot;/static/97f360d164cdab81a25be5ea1698a734/c26ae/Snipaste_2022-03-20_05-28-12.png 158w,
+/static/97f360d164cdab81a25be5ea1698a734/6bdcf/Snipaste_2022-03-20_05-28-12.png 315w,
+/static/97f360d164cdab81a25be5ea1698a734/f058b/Snipaste_2022-03-20_05-28-12.png 630w,
+/static/97f360d164cdab81a25be5ea1698a734/40601/Snipaste_2022-03-20_05-28-12.png 945w,
+/static/97f360d164cdab81a25be5ea1698a734/78612/Snipaste_2022-03-20_05-28-12.png 1260w,
+/static/97f360d164cdab81a25be5ea1698a734/c5ef8/Snipaste_2022-03-20_05-28-12.png 3726w&quot; sizes=&quot;(max-width: 630px) 100vw, 630px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
+&lt;figcaption&gt;执行完成后的效果图&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;之后可以发现页面下部出现了上传文件的控件界面，正常使用一般即可完成上传操作（选择文件后，需要点击上传按钮）。上传完成后，关闭页面即可。&lt;/p&gt;
+&lt;h2&gt;查看证书&lt;/h2&gt;
+&lt;p&gt;可以在“我的竞赛”页面查看参与的比赛已经已上传的证书。如果链接无法打开，参照前文提及的方法。&lt;/p&gt;</content:encoded></item></channel></rss>
