@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: `Tiger:blank`,
+    title: `kLiHb's Blog`,
     author: {
       name: `Henry`,
       summary: ` who is studying computer science and related technologies`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://tsagaanbar.github.io/`,
+    siteUrl: `https://klihb.github.io/`,
     social: {
-      github: `tsagaanbar`,
+      github: `kLiHb`,
       mastodonInstance: `mastodon.social`,
       mastodonUsername: `tsagaanbar`,
     },
